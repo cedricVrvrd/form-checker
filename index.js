@@ -1,10 +1,14 @@
 const form = document.querySelector("form");
+// selection de tous les inputs
 const inputs = document.querySelectorAll(
   'input[type="text"], input[type="password"]'
 );
 const progressBar = document.getElementById("progress-bar");
+
+// stockage provisoire des inputs
 let pseudo, email, password, confirmPass;
 
+// fonction affichage erreurs
 const errorDisplay = (tag, message, valid) => {
   const container = document.querySelector("." + tag + "-container");
   const span = document.querySelector("." + tag + "-container > span");
@@ -17,7 +21,7 @@ const errorDisplay = (tag, message, valid) => {
     span.textContent = message;
   }
 };
-
+// analyse le pseudo
 const pseudoChecker = (value) => {
   if (value.length > 0 && (value.length < 3 || value.length > 20)) {
     errorDisplay("pseudo", "Le pseudo doit faire entre 3 et 20 caractères");
@@ -33,7 +37,7 @@ const pseudoChecker = (value) => {
     pseudo = value;
   }
 };
-
+// analyse du mail
 const emailChecker = (value) => {
   if (!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
     errorDisplay("email", "Le mail n'est pas valide");
@@ -43,7 +47,7 @@ const emailChecker = (value) => {
     email = value;
   }
 };
-
+// analyse password
 const passwordChecker = (value) => {
   progressBar.classList = "";
 
@@ -69,7 +73,7 @@ const passwordChecker = (value) => {
   }
   if (confirmPass) confirmChecker(confirmPass);
 };
-
+// confirmation mdp
 const confirmChecker = (value) => {
   if (value !== password) {
     errorDisplay("confirm", "Les mots de passe ne correspondent pas");
@@ -79,7 +83,7 @@ const confirmChecker = (value) => {
     confirmPass = true;
   }
 };
-
+// controle de chaque input
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
     switch (e.target.id) {
